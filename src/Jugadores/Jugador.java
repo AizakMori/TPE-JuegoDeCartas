@@ -1,17 +1,19 @@
 package Jugadores;
 import java.util.ArrayList;
 import atributos.*;
+import herramientas.Mensajes;
 import mazo_cartas_pocima.*;
 
 public class Jugador {
+	private String nombre;
 	private Mazo mazo;
 	private ArrayList<Comparador> comparadores;
-	private String nombre;
 	private boolean ganador;
 	
 	public Jugador(String nom) {
 		nombre = nom;
 		mazo = new Mazo();
+		comparadores = new ArrayList<>();
 		setComparadores();
 	}
 	
@@ -22,8 +24,10 @@ public class Jugador {
 		this.nombre = nombre;
 	}
 	public Comparador atributoSeleccionado() {
-		int indx = herramientas.Random.getRandom(comparadores.size())-1;
-		return comparadores.get(indx);
+		int indx =(int)(Math.random()*comparadores.size()); 
+		Comparador comp = comparadores.get(indx);
+		Mensajes.atributoSelec(this.getNombre(), comp.getNombre());
+		return comp;
 	}
 	public boolean isGanador() {
 		return ganador;
@@ -43,7 +47,7 @@ public class Jugador {
 	public int cantCartas() {
 		return mazo.cantCartas();
 	}
-	public void empate(Carta c){
+	public void finalDelMazo(Carta c){
 		ganador = false;
 		mazo.ultimoLugar(c);
 	}

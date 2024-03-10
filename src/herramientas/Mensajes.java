@@ -18,13 +18,20 @@ public class Mensajes {
 	public static void ronda(int rondas) {
 		System.out.println(SEPARADOR1 + rondas + SEPARADOR2);
 	}
+	public static void atributoSelec(String j,String c) {
+		System.out.println("El jugador " + j + " selecciona competir por el atributo " + c);
+	}
+	//public static void mostrarDatos(String nombreC1, )
 	public static void ganadorRonda(String j) {
 		System.out.println(GANADOR + j.toUpperCase());
 	}
 	public static void empate() {
 		System.out.println(EMPATE);
 	}
-	public static void finalPartida(String j1, int cartasJ1, String j2, int cartasJ2) {
+	public static void finalRonda(String j1, int cartasJ1, String j2, int cartasJ2) {
 		System.out.println(j1 + POSEE + cartasJ1 + " y " + j2 + POSEE + cartasJ2); 
+	}
+	public static void finDePartida(String j) {
+		System.out.println("GANADOR/A DE LA PARTIDA " + j.toUpperCase());
 	}
 }

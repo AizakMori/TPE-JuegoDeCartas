@@ -34,6 +34,6 @@ public class Mazo {
 		 return aux.toString();
 	}
 	public void ultimoLugar(Carta c) {				//COLOCA LA CARTA EN EL ULTIMO LUGAR EN CASO DE EMPATE
-		cartas.add(cartas.size()-1, c);
+		cartas.add(cartas.size(), c);
 	}
 }

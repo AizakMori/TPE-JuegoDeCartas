@@ -2,13 +2,13 @@ package mazo_cartas_pocima;
 
 public class Carta {
 	private String nombre;
-	private double altura;
-	private double peso;
-	private double velocidad;
-	private double fuerza;
+	private int altura;
+	private int peso;
+	private int velocidad;
+	private int fuerza;
 	private int peleasGanadas;
 	
-	public Carta(String nom,double alt, double aPeso, double aVel, double aFuerza, int pel) {
+	public Carta(String nom,int alt, int aPeso, int aVel, int aFuerza, int pel) {
 		nombre = nom;
 		altura = alt;
 		peso = aPeso;
@@ -25,7 +25,7 @@ public class Carta {
 		return altura;
 	}
 
-	public void setAltura(double altura) {
+	public void setAltura(int altura) {
 		this.altura = altura;
 	}
 
@@ -37,7 +37,7 @@ public class Carta {
 		return peso;
 	}
 
-	public void setPeso(double peso) {
+	public void setPeso(int peso) {
 		this.peso = peso;
 	}
 
@@ -45,7 +45,7 @@ public class Carta {
 		return velocidad;
 	}
 
-	public void setVelocidad(double velocidad) {
+	public void setVelocidad(int velocidad) {
 		this.velocidad = velocidad;
 	}
 
@@ -53,7 +53,7 @@ public class Carta {
 		return fuerza;
 	}
 
-	public void setFuerza(double fuerza) {
+	public void setFuerza(int fuerza) {
 		this.fuerza = fuerza;
 	}
 
@@ -71,7 +71,6 @@ public class Carta {
 		else 
 			return false;
 	}
-	
 	public String toString() {
 		return "Nombre: " + this.getNombre() + " Altura: " + this.getAltura() + " Peso: " + this.getPeso() +
 				" Fuerza: " + this.getFuerza() + "Peleas ganadas: " + this.getPeleasGanadas();
