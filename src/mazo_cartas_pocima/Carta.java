@@ -1,4 +1,4 @@
-package juegoDeCartas_v1;
+package mazo_cartas_pocima;
 
 public class Carta {
 	private String nombre;

@@ -1,6 +1,6 @@
 package atributos;
 
-import juegoDeCartas_v1.Carta;
+import mazo_cartas_pocima.Carta;
 
 public class Fuerza extends Comparador {
 	public final String NOMBRE = "Fuerza";

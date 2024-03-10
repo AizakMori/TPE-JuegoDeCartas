@@ -1,132 +1,82 @@
 package juegoDeCartas_v1;
+import java.util.ArrayList;
+import Jugadores.*;
+import atributos.*;
+import mazo_cartas_pocima.*;
+import herramientas.*;
 
-import atributos.Comparador;
-//import herramientas.Mensajes;
+
 
 public class Juego {
 	private Mazo mazoGeneral;
 	private Jugador j1;
 	private Jugador j2;
-	private Comparador atributo;
-	private boolean primeraRonda;
-	private boolean partidaTerminada;
 	public static int MAXRONDAS = 6;
+	public final int MAXJUGADORES = 2;
 	public int nroRondas;
-	
-	private String SEPARADORRONDA = "-------------------- ronda " ;
-	private String SEPARADOR = " -------------------- ";
-	private final String GANADOR = "Gana la ronda: ";
-	private final String EMPATE = "Hubo empate, conservan sus cartas";
-	private final String POSEE = " posee: ";
-	private final String REPARTIR = "Repartiendo del mazo a los jugadores...";
-	private final String SELECCION = "Se selecciono competir por el atributo: ";
-	private final String GANADORPARTIDA = "GANADOR DE ESTA PARTIDA ES: ";
-
 
 	public Juego(Mazo m1, Jugador j1, Jugador j2) {
 		mazoGeneral = m1;
 		this.j1 = j1;
 		this.j2 = j2;
-		primeraRonda = true;
-		partidaTerminada = false;
 		nroRondas = 1;
 	}
-	public void comenzarJuego() {
+	public void jugar() {
 		repartir();
-	}
-	public void continuarJuego() {
-		if(partidaTerminada != true) {
-			limpiarGanador();
-			comparar();
-			mostrarGanador();
-			mostrarCantCartas();
+		while((nroRondas < MAXRONDAS) && (j1.cantCartas()>0) && (j2.cantCartas()>0)) {
+			Mensajes.ronda(nroRondas);
+			comparar();		
 		}
+		Mensajes.finalPartida(j1.getNombre(),j1.cantCartas(), j2.getNombre(),j2.cantCartas());
 	}
+
 	public static void setRondas(int rondas) {
 		MAXRONDAS = rondas;
 	}
-	
-	public void limpiarGanador() {
-		j1.setGanador(false);
-		j2.setGanador(false);
-	}
-
-	public void repartir() {
-		if(primeraRonda==true) {
-			System.out.println(REPARTIR);
+	private void repartir() {
+		if(nroRondas == 1) {
+			Mensajes.imprimirRepartir();
 			while(mazoGeneral.quedanCartas()) {
-				j1.addCarta(mazoGeneral.entregarCarta());
+				j1.addCarta(mazoGeneral.repartirCarta());
 				if(mazoGeneral.quedanCartas()) {
-					j2.addCarta(mazoGeneral.entregarCarta());
+					j2.addCarta(mazoGeneral.repartirCarta());
 				}
 			}
 		}
 	}
-	
+	private Comparador obtenerComparador() {
+		if(j1.isGanador()) {
+			return j1.atributoSeleccionado();
+		}else if(j2.isGanador()) {
+			return j2.atributoSeleccionado();
+		}else {
+			if(j1.cantCartas() > j2.cantCartas()) 
+				return j2.atributoSeleccionado();
+			else 
+				return j1.atributoSeleccionado();
 
-
-	public boolean verificarGanador(Jugador j) {
-		if(j.isGanador())
-			return true;
-		return false;
-	}
-
-
-	public void setAtributoCompetidor(Comparador c1) {
-		if(partidaTerminada != true) {
-			atributo = c1;
-			imprimir(SEPARADORRONDA + nroRondas + SEPARADOR);
-			imprimir(SELECCION + c1.getNombre());						
 		}
 	}
-
 
 	public void comparar() {
-		int resultado = atributo.compare(j1.mostrarCarta(), j2.mostrarCarta());
+		Carta cartaJ1 = j1.jugarCarta();
+		Carta cartaJ2 = j2.jugarCarta();
+		Comparador comp = obtenerComparador();
+		//Mensajes.mostrarComparacion(cartaJ1, cartaJ2, comp.getNombre());
+		int resultado = comp.compare(cartaJ1, cartaJ2);
 		if(resultado == 1) {
 			j1.setGanador(true);
-			j1.addCarta(j2.entregarCarta());
+			j1.addCarta(cartaJ2);
+			Mensajes.ganadorRonda(j1.getNombre());
 		}else if(resultado == -1) {
 			j2.setGanador(true);
-			j2.addCarta(j1.entregarCarta());
+			j2.addCarta(cartaJ1);
+			Mensajes.ganadorRonda(j1.getNombre());
 		}else {
-			limpiarGanador();
+			j1.empate(cartaJ1);
+			j2.empate(cartaJ2);
+			Mensajes.empate();
 		}
 		nroRondas++;
-	}
-
-
-
-	public void mostrarGanador() {
-		if(verificarGanador(j1)) {
-			imprimir(GANADOR + j1.getNombre());
-		}else if(verificarGanador(j2))
-			imprimir(GANADOR + j2.getNombre());
-		else
-			imprimir(EMPATE);
-	}
-
-
-	public void mostrarCantCartas() {
-		finalDePartida();
-		imprimir(j1.getNombre() + POSEE + j1.cantCartas() + " y " + j2.getNombre() + POSEE + j2.cantCartas());
-	}
-
-	public void finalDePartida() {
-		int cantJ1 = j1.cantCartas();
-		int cantJ2 = j2.cantCartas();
-		if(cantJ1 == 0 || cantJ2 == 0 && (nroRondas < MAXRONDAS)) {
-			if(cantJ1>0) {
-				imprimir(GANADORPARTIDA + j1.getNombre());
-			}else {
-				imprimir(GANADORPARTIDA + j2.getNombre());
-			}
-			partidaTerminada = true;
-		}
-
-	}
-	
-	public void imprimir(String s) {
-		System.out.println(s);
 	}
 }
