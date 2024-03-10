@@ -7,7 +7,7 @@ public class Carta {
 	private int velocidad;
 	private int fuerza;
 	private int peleasGanadas;
-	
+
 	public Carta(String nom,int alt, int aPeso, int aVel, int aFuerza, int pel) {
 		nombre = nom;
 		altura = alt;
@@ -16,12 +16,12 @@ public class Carta {
 		fuerza = aFuerza;
 		peleasGanadas = pel;
 	}
-	
+
 	public String getNombre() {
 		return nombre;
 	}
 
-	public double getAltura() {
+	public int getAltura() {
 		return altura;
 	}
 
@@ -33,7 +33,7 @@ public class Carta {
 		this.nombre = nombre;
 	}
 
-	public double getPeso() {
+	public int getPeso() {
 		return peso;
 	}
 
@@ -41,7 +41,7 @@ public class Carta {
 		this.peso = peso;
 	}
 
-	public double getVelocidad() {
+	public int getVelocidad() {
 		return velocidad;
 	}
 
@@ -49,7 +49,7 @@ public class Carta {
 		this.velocidad = velocidad;
 	}
 
-	public double getFuerza() {
+	public int getFuerza() {
 		return fuerza;
 	}
 
@@ -64,12 +64,34 @@ public class Carta {
 	public void setPeleasGanadas(int peleasGanadas) {
 		this.peleasGanadas = peleasGanadas;
 	}
-	
+
 	public boolean verificar() {
 		if(!nombre.isEmpty() && altura > 0 && peso > 0 && velocidad > 0 && fuerza > 0 && peleasGanadas >=0)
 			return true;
 		else 
 			return false;
+	}
+	
+	public int getAtributoMasAlto() {
+		int max = this.getAltura();
+		int numAt = 0;
+		if((this.getPeso()) > max) {
+			max = this.getPeso();
+			numAt = 1;
+		}
+		if((this.getVelocidad()) > max) {
+			max = this.getVelocidad();
+			numAt = 2;
+		}
+		if((this.getFuerza()) > max) {
+			max=this.getFuerza();
+			numAt = 3;
+		}
+		if((this.getPeleasGanadas())>max) {
+			max= this.getPeleasGanadas();
+			numAt = 4;
+		}
+		return numAt;
 	}
 	public String toString() {
 		return "Nombre: " + this.getNombre() + " Altura: " + this.getAltura() + " Peso: " + this.getPeso() +

@@ -6,8 +6,8 @@ import mazo_cartas_pocima.*;
 
 public class Jugador {
 	private String nombre;
-	private Mazo mazo;
-	private ArrayList<Comparador> comparadores;
+	protected Mazo mazo;
+	protected ArrayList<Comparador> comparadores;
 	private boolean ganador;
 	
 	public Jugador(String nom) {
@@ -15,6 +15,7 @@ public class Jugador {
 		mazo = new Mazo();
 		comparadores = new ArrayList<>();
 		setComparadores();
+		ganador = false;
 	}
 	
 	public String getNombre() {
@@ -52,10 +53,10 @@ public class Jugador {
 		mazo.ultimoLugar(c);
 	}
 	public void setComparadores() {
-		Comparador comp1 = new Fuerza();
 		Comparador comp2 = new Altura();
 		Comparador comp3 = new Peso();
 		Comparador comp4 = new Velocidad();
+		Comparador comp1 = new Fuerza();
 		Comparador comp5 = new Peleas_Ganadas();
 		
 		comparadores.add(comp1);

@@ -11,4 +11,9 @@ public class Fuerza extends Comparador {
 	public int compare(Carta c1, Carta c2) {
 		return Double.compare(c1.getFuerza(), c2.getFuerza());
 	}
+	@Override
+	public int getNum() {
+		// TODO Auto-generated method stub
+		return 3;
+	}
 }

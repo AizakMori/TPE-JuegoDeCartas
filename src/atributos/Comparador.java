@@ -14,4 +14,5 @@ public abstract class Comparador{
 	public String getNombre() {
 		return this.nombre;
 	}
+	public abstract int getNum();
 }

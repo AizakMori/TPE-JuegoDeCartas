@@ -22,6 +22,10 @@ public class Mazo {
 		cartas.remove(0);
 		return aux;
 	}
+	public Carta verCarta() {						//PARA EL JUGADOR AMBICIOSO
+		Carta aux = cartas.get(0);
+		return aux;
+	}
 	public boolean quedanCartas() {					//VERIFICA SI QUEDAN CARTAS
 		return cartas.size()!=0;
 	}

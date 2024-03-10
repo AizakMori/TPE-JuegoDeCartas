@@ -10,5 +10,9 @@ public class Peso extends Comparador {
 	public int compare(Carta c1, Carta c2) {
 		return Double.compare(c1.getPeso(), c2.getPeso());
 	}
-
+	@Override
+	public int getNum() {
+		// TODO Auto-generated method stub
+		return 1;
+	}
 }
