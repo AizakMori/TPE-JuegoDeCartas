@@ -12,17 +12,9 @@ public class JugadorAmbicioso extends Jugador {
 		return aux;
 		}
 	
-	public Comparador atributoSeleccionado() {
-		Comparador comp = null;
+	public int atributoSeleccionado(int i) {			//BUENO AL AMBICIOSO NO LE INTERESA LA CANTIDAD DE COMPARADORES QUE EXISTEN JAJA
 		int aux = getAtributoAlto();
-		for (int i = 0; i<5; i++) {
-			Comparador compAux = comparadores.get(i);
-			if(compAux.getNum() == aux) {
-				comp = compAux; 
-				}
-		}
-		Mensajes.atributoSelec(this.getNombre(), comp.getNombre());
-		return comp;
+		return aux;
 	}
 	
 }

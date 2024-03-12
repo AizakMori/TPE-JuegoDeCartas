@@ -1,4 +1,6 @@
-package mazo_cartas_pocima;
+package pocimas;
+
+import mazo_cartas_pocima.Carta;
 
 public class PocimaAtributo extends Pocima {
 	public PocimaAtributo() {
@@ -10,7 +12,7 @@ public class PocimaAtributo extends Pocima {
 	}
 
 	@Override
-	public void aplicar(Carta c) {
+	public void aplicar(Carta c, int i) {
 		// TODO Auto-generated method stub
 
 	}

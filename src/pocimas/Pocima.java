@@ -1,4 +1,5 @@
 package pocimas;
+import herramientas.*;
 
 import mazo_cartas_pocima.Carta;
 
@@ -14,5 +15,5 @@ public abstract class Pocima {
 		System.out.println("Se aplico " + this.getNombre());
 	}
 	
-	public abstract void aplicar(Carta c);
+	public abstract void aplicar(Carta c, int i);
 }

@@ -1,12 +1,9 @@
 package juegoDeCartas_v1;
 import java.util.ArrayList;
-
 import Jugadores.*;
 import atributos.*;
 import mazo_cartas_pocima.*;
 import herramientas.*;
-
-
 
 public class Juego {
 	private Mazo mazoGeneral;
@@ -14,7 +11,7 @@ public class Juego {
 	private Comparador elegido;
 	private Jugador j1;
 	private Jugador j2;
-	public static int MAXRONDAS = 20;
+	public static int MAXRONDAS = 14;
 	public int nroRondas;
 
 	public Juego(Mazo m1, Jugador j1, Jugador j2) {
@@ -57,6 +54,7 @@ public class Juego {
 		int indx = comparadores.size();
 		if(j1.isGanador()) {	
 			elegido = comparadores.get(j1.atributoSeleccionado(indx));
+			
 		}else if(j2.isGanador()) {
 			elegido = comparadores.get(j2.atributoSeleccionado(indx));
 		}else {
@@ -67,41 +65,48 @@ public class Juego {
 		}
 	}
 
-	public void comparar() {	
-		int numComp = elegido.getNum();
-		Carta cartaJ1 = j1.jugarCarta();
-		Carta cartaJ2 = j2.jugarCarta();
-		cartaJ1.getDatos(numComp, j1.getNombre());
-		cartaJ2.getDatos(numComp, j2.getNombre());
-		verificarPocimas(cartaJ1, cartaJ2);
-		int resultado = elegido.compare(cartaJ1, cartaJ2);										
-		if(resultado == 1) {
-			j1.setGanador(true);
-			j1.finalDelMazo(cartaJ1);
-			j1.finalDelMazo(cartaJ2);
-			Mensajes.ganadorRonda(j1.getNombre());
-		}else if(resultado == -1) {
-			j2.setGanador(true);
-			j2.finalDelMazo(cartaJ2);
-			j2.finalDelMazo(cartaJ1);
-			Mensajes.ganadorRonda(j2.getNombre());
-		}else {
-			j1.finalDelMazo(cartaJ1);
-			j2.finalDelMazo(cartaJ2);
-			Mensajes.empate();
-		}
-		nroRondas++;
+	public void comparar() {
+	    int numComp = elegido.getNum();
+	    Carta cartaJ1 = j1.jugarCarta();
+	    Carta cartaJ2 = j2.jugarCarta();
+	    
+	    verificarPocimas(cartaJ1);
+	    verificarPocimas(cartaJ2);
+	    
+	    Mensajes.mostrarCarta(elegido.getNombre(), j1.getNombre(), cartaJ1.getNombre(), cartaJ1.getAtributo(numComp));
+	    Mensajes.mostrarCarta(elegido.getNombre(), j2.getNombre(), cartaJ2.getNombre(), cartaJ2.getAtributo(numComp));
+
+	    int res = elegido.compare(cartaJ1, cartaJ2);
+
+	    procesarResultadoRonda(res, cartaJ1, cartaJ2);
+	    nroRondas++;
 	}
-	public void verificarPocimas(Carta c1, Carta c2) {
+	
+	public void verificarPocimas(Carta c1) {
 		if(c1.usada() != true) {
-			c1.aplicarPocima(numComp);
-			c1.getDatos(numComp, j1.getNombre());			
-		}
-		if(c1.usada()!= true) {
-			c1.aplicarPocima(numComp);
-			c1.getDatos(numComp, j2.getNombre());			
+			c1.aplicarPocima(elegido.getNum());			
 		}
 	}
+
+	private void procesarResultadoRonda(int res, Carta cartaJ1, Carta cartaJ2) {
+	    if (res == 1) {
+	        j1.setGanador(true);
+	        j1.finalDelMazo(cartaJ1);
+	        j1.finalDelMazo(cartaJ2);
+	        Mensajes.ganadorRonda(j1.getNombre());
+	    } else if (res == -1) {
+	        j2.setGanador(true);
+	        j2.finalDelMazo(cartaJ2);
+	        j2.finalDelMazo(cartaJ1);
+	        Mensajes.ganadorRonda(j2.getNombre());
+	    } else {
+	        j1.finalDelMazo(cartaJ1);
+	        j2.finalDelMazo(cartaJ2);
+	        Mensajes.empate();
+	    }
+	}
+	
+
 	public void setComparadores() {
 		Comparador comp2 = new Altura();
 		Comparador comp3 = new Peso();
@@ -115,4 +120,5 @@ public class Juego {
 		comparadores.add(comp4);
 		comparadores.add(comp5);
 	}
+	
 }

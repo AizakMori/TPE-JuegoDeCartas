@@ -6,12 +6,7 @@ public class Mensajes {
 	private static final String GANADOR = "Gana la ronda: ";
 	private static final String EMPATE = "Hubo empate, envian sus cartas al ultimo lugar de su mazo";
 	private static final String POSEE = " posee ahora: ";
-	private static final String REPARTIR = "Repartiendo del mazo a los jugadores...";
-	private static final String SELECCION = "Se selecciono competir por el atributo: ";
-	
-	public static void imprimirGanadorDeRonda() {
-		
-	}
+
 	public static void imprimirRepartir() {
 		System.out.println("Repartiendo cartas del mazo....");
 	}
@@ -24,6 +19,12 @@ public class Mensajes {
 	//public static void mostrarDatos(String nombreC1, )
 	public static void ganadorRonda(String j) {
 		System.out.println(GANADOR + j.toUpperCase());
+	}
+	public static void mostrarCarta(String nombreAt, String jugador, String nombreC, int at) {
+		System.out.println("La carta de " + jugador + " es " + nombreC + " con "+ nombreAt + " de: "  + at );
+	}
+	public static void mostrarPocima(String pocima, int at) {
+		System.out.println("Se aplico una " + pocima + " valor resultante: " + at);
 	}
 	public static void empate() {
 		System.out.println(EMPATE);

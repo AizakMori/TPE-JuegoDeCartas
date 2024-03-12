@@ -1,7 +1,4 @@
 package Jugadores;
-import java.util.ArrayList;
-import atributos.*;
-import herramientas.Mensajes;
 import mazo_cartas_pocima.*;
 
 public class Jugador {

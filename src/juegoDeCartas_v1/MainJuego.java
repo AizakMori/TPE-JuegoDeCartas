@@ -39,8 +39,8 @@ public class MainJuego {
 		
 		Pocima p2 = new PocimaMagica();
 		Pocima p3 = new PocimaMagica();
-		Pocima p4 = new PocimaMagica();
-		Pocima p1 = new PocimaDebilitadora();
+		Pocima p4 = new PocimaFortalecedora();
+		Pocima p1 = new PocimaFortalecedora();
 		Pocima p5 = new PocimaDebilitadora();
 		Pocima p6 = new PocimaDebilitadora();
 		m1.addPocima(p1);

@@ -10,7 +10,7 @@ public class PocimaCocktail extends Pocima {
 	}
 
 	@Override
-	public void aplicar(Carta c) {
+	public void aplicar(Carta c, int i) {
 		// TODO Auto-generated method stub
 
 	}

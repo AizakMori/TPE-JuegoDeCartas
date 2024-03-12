@@ -1,22 +1,18 @@
 package Jugadores;
-import atributos.*;
-import herramientas.Mensajes;
-
 public class JugadorObstinado extends Jugador {
-	private Comparador atributoObstinado;
-	private boolean selec;
-	public JugadorObstinado(String nom) {
-		super(nom);
-		selec = false;
+	public final int NEGATIVO = -1;
+	private int select;
+	public JugadorObstinado(String nom) {			//POR SI SOLO LO CREAS CON NOMBRE
+		this(nom, -1);
 	}
-	
-	public Comparador atributoSeleccionado() {
-		if(selec == false) {
-			int indx = (int)(Math.random()*comparadores.size());
-			atributoObstinado = comparadores.get(indx);
-			selec = true;
+	public JugadorObstinado(String nom, int i) {	//POR SI QUERES CREARLO TAMBIEN CON EL NUMERO DE ATRIBUTO QUE VA A QUEDAR
+		super(nom);
+		select = i;
+	}
+	public int atributoSeleccionado(int indx) {
+		if(select != NEGATIVO) {
+			select = (int)(Math.random() * indx);
 		}
-		Mensajes.atributoSelec(this.getNombre(), atributoObstinado.getNombre());
-		return atributoObstinado;
+		return select;
 	}
 }

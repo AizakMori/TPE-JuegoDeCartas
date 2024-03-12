@@ -13,8 +13,7 @@ public class PocimaFortalecedora extends Pocima {
 		porcentaje = i;
 	}
 	@Override
-	public void aplicar(Carta c) {
-		System.out.println("Se aplico pocima fortalecedora");
+	public void aplicar(Carta c, int i) {
 		int fuerzaOr = c.getFuerza();
 		int alturaOr = c.getAltura();
 		int pesoOr = c.getPeso();
@@ -36,6 +35,5 @@ public class PocimaFortalecedora extends Pocima {
 		c.setVelocidad(aux3);
 		c.setFuerza(aux4);
 		c.setPeleasGanadas(aux5);
-		System.out.println(res4);
 	}
 }

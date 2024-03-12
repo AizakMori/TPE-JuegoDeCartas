@@ -2,7 +2,7 @@ package mazo_cartas_pocima;
 import herramientas.*;
 import pocimas.*;
 
-public class Carta {
+public class Carta extends Cartas{
 	private String nombre;
 	private int altura;
 	private int peso;
@@ -19,6 +19,7 @@ public class Carta {
 		velocidad = aVel;
 		fuerza = aFuerza;
 		peleasGanadas = pel;
+		seUsoPocima = true;
 	}
 
 	public String getNombre() {
@@ -72,11 +73,13 @@ public class Carta {
 
 	public void aplicarPocima(int i) {
 		if(seUsoPocima != true && pocima != null) {
-			pocima.aplicar(this);
+			pocima.aplicar(this, i);
+			Mensajes.mostrarPocima(pocima.getNombre(), this.getAtributo(i));
 			seUsoPocima = true;			
 		}
 	}
 	public void addPocima(Pocima p) {
+		seUsoPocima = false;
 		pocima = p;
 	}
 	public boolean usada() {
@@ -115,23 +118,39 @@ public class Carta {
 	}
 	public void getDatos(int comp, String jugador) {
 		switch(comp) {
-		case 3: 
-			System.out.println("La carta de " + jugador + " es " + this.getNombre() + " con una Fuerza de: "  + this.getFuerza() );
-			break;
 		case 0:
 			System.out.println("La carta de " + jugador + " es " + this.getNombre() + " con Altura de: " + this.getAltura() );
-			break;
-		case 4:
-			System.out.println("La carta de " + jugador + " es " + this.getNombre() + " con un total de Peleas ganadas: " + this.getPeleasGanadas() );
-			break;
-		case 2:
-			System.out.println("La carta de " + jugador + " es " + this.getNombre() + " con una velocidad de: " + this.getVelocidad() );
 			break;
 		case 1:
 			System.out.println("La carta de " + jugador + " es " + this.getNombre() + " con un peso de: " + this.getPeso() );
 			break;
+		case 2:
+			System.out.println("La carta de " + jugador + " es " + this.getNombre() + " con una velocidad de: " + this.getVelocidad() );
+			break;
+		case 3: 
+			System.out.println("La carta de " + jugador + " es " + this.getNombre() + " con una Fuerza de: "  + this.getFuerza() );
+			break;
+		case 4:
+			System.out.println("La carta de " + jugador + " es " + this.getNombre() + " con un total de Peleas ganadas: " + this.getPeleasGanadas() );
+			break;
 		default:
 			break;
+		}
+	}
+	public int getAtributo(int i) {
+		switch(i) {
+		case 0:
+			return this.getAltura();
+		case 1:
+			return this.getPeso();
+		case 2:
+			return this.getVelocidad();
+		case 3: 
+			return this.getFuerza();
+		case 4:
+			return this.getPeleasGanadas();
+		default:
+			return -1;
 		}
 	}
 }
