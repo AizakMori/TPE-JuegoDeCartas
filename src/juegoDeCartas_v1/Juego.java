@@ -1,5 +1,6 @@
 package juegoDeCartas_v1;
 import java.util.ArrayList;
+
 import Jugadores.*;
 import atributos.*;
 import mazo_cartas_pocima.*;
@@ -9,6 +10,8 @@ import herramientas.*;
 
 public class Juego {
 	private Mazo mazoGeneral;
+	private ArrayList<Comparador> comparadores;
+	private Comparador elegido;
 	private Jugador j1;
 	private Jugador j2;
 	public static int MAXRONDAS = 20;
@@ -19,11 +22,14 @@ public class Juego {
 		this.j1 = j1;
 		this.j2 = j2;
 		nroRondas = 1;
+		comparadores = new ArrayList<>();
+		setComparadores();
 	}
 	public void jugar() {
 		repartir();
 		while((nroRondas < MAXRONDAS) && (j1.cantCartas()>0) && (j2.cantCartas()>0)) {	
 			Mensajes.ronda(nroRondas);
+			obtenerComparador();
 			comparar();
 			Mensajes.finalRonda(j1.getNombre(),j1.cantCartas(), j2.getNombre(),j2.cantCartas());
 		}
@@ -31,13 +37,12 @@ public class Juego {
 			Mensajes.finDePartida(j1.getNombre());
 		else
 			Mensajes.finDePartida(j2.getNombre());
-
 	}
 
 	public static void setRondas(int rondas) {	
 		MAXRONDAS = rondas;
 	}
-	
+
 	private void repartir() {	
 		Mensajes.imprimirRepartir();
 		while(mazoGeneral.quedanCartas()) {
@@ -47,26 +52,29 @@ public class Juego {
 			}
 		}
 	}
-	
-	private Comparador obtenerComparador() {
+
+	private void obtenerComparador() {
+		int indx = comparadores.size();
 		if(j1.isGanador()) {	
-			return j1.atributoSeleccionado();
+			elegido = comparadores.get(j1.atributoSeleccionado(indx));
 		}else if(j2.isGanador()) {
-			return j2.atributoSeleccionado();
+			elegido = comparadores.get(j2.atributoSeleccionado(indx));
 		}else {
 			if(j1.cantCartas() > j2.cantCartas()) 
-				return j2.atributoSeleccionado();
+				elegido = comparadores.get(j1.atributoSeleccionado(indx));
 			else 
-				return j1.atributoSeleccionado();
+				elegido = comparadores.get(j2.atributoSeleccionado(indx));
 		}
 	}
 
-	public void comparar() {
-		Comparador comp = obtenerComparador();															
-		Carta cartaJ1 = j1.jugarCarta();															
+	public void comparar() {	
+		int numComp = elegido.getNum();
+		Carta cartaJ1 = j1.jugarCarta();
 		Carta cartaJ2 = j2.jugarCarta();
-		int resultado = comp.compare(cartaJ1, cartaJ2);										
-		getDatos(comp.getNombre(), cartaJ1, cartaJ2);
+		cartaJ1.getDatos(numComp, j1.getNombre());
+		cartaJ2.getDatos(numComp, j2.getNombre());
+		verificarPocimas(cartaJ1, cartaJ2);
+		int resultado = elegido.compare(cartaJ1, cartaJ2);										
 		if(resultado == 1) {
 			j1.setGanador(true);
 			j1.finalDelMazo(cartaJ1);
@@ -84,31 +92,27 @@ public class Juego {
 		}
 		nroRondas++;
 	}
-	
-	public void getDatos(String tipoAtributo, Carta cartaj1, Carta cartaj2) {
-		switch(tipoAtributo) {
-		case "Fuerza": 
-			System.out.println("La carta de " + j1.getNombre() + " es " + cartaj1.getNombre() + " con " + tipoAtributo + ": " + cartaj1.getFuerza() );
-			System.out.println("La carta de " + j2.getNombre() + " es " + cartaj2.getNombre() + " con " + tipoAtributo + ": " + cartaj2.getFuerza() );
-			break;
-		case "Altura":
-			System.out.println("La carta de " + j1.getNombre() + " es " + cartaj1.getNombre() + " con " + tipoAtributo + ": " + cartaj1.getAltura() );
-			System.out.println("La carta de " + j2.getNombre() + " es " + cartaj2.getNombre() + " con " + tipoAtributo + ": " + cartaj2.getAltura() );
-			break;
-		case "Peleas Ganadas":
-			System.out.println("La carta de " + j1.getNombre() + " es " + cartaj1.getNombre() + " con " + tipoAtributo + ": " + cartaj1.getPeleasGanadas() );
-			System.out.println("La carta de " + j2.getNombre() + " es " + cartaj2.getNombre() + " con " + tipoAtributo + ": " + cartaj2.getPeleasGanadas() );
-			break;
-		case "Velocidad":
-			System.out.println("La carta de " + j1.getNombre() + " es " + cartaj1.getNombre() + " con " + tipoAtributo + ": " + cartaj1.getVelocidad() );
-			System.out.println("La carta de " + j2.getNombre() + " es " + cartaj2.getNombre() + " con " + tipoAtributo + ": " + cartaj2.getVelocidad() );
-			break;
-		case "Peso":
-			System.out.println("La carta de " + j1.getNombre() + " es " + cartaj1.getNombre() + " con " + tipoAtributo + ": " + cartaj1.getPeso() );
-			System.out.println("La carta de " + j2.getNombre() + " es " + cartaj2.getNombre() + " con " + tipoAtributo + ": " + cartaj2.getPeso() );
-			break;
-		default:
-			break;
+	public void verificarPocimas(Carta c1, Carta c2) {
+		if(c1.usada() != true) {
+			c1.aplicarPocima(numComp);
+			c1.getDatos(numComp, j1.getNombre());			
 		}
+		if(c1.usada()!= true) {
+			c1.aplicarPocima(numComp);
+			c1.getDatos(numComp, j2.getNombre());			
+		}
+	}
+	public void setComparadores() {
+		Comparador comp2 = new Altura();
+		Comparador comp3 = new Peso();
+		Comparador comp4 = new Velocidad();
+		Comparador comp1 = new Fuerza();
+		Comparador comp5 = new Peleas_Ganadas();
+		
+		comparadores.add(comp1);
+		comparadores.add(comp2);
+		comparadores.add(comp3);
+		comparadores.add(comp4);
+		comparadores.add(comp5);
 	}
 }

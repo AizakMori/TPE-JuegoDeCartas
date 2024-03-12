@@ -1,16 +1,16 @@
 package juegoDeCartas_v1;
 
 import Jugadores.*;
-import atributos.*;
 import mazo_cartas_pocima.*;
+import pocimas.*;
 
 //ASUMI QUE NO SE VAN A AGREGAR NUEVOS ATRIBUTOS A FUTURO POR ENDE DIRECTAMENTE SE CREAN EN LA CLASE JUGADOR PARA QUE ESTE LOS SELECCIONE
 public class MainJuego {
 
 	public static void main(String[] args) {
 		Mazo m1 = new Mazo();
-		Jugador j1 = new JugadorObstinado("Luis");
-		Jugador j2 = new JugadorObstinado("Mary");
+		Jugador j1 = new Jugador("Luis");
+		Jugador j2 = new Jugador("Mary");
 		
 		//SIMPLIFIQUE LOS ATRIBUTOS A INT
 		// NOMBRE // ALTURA EN CM // PESO EN KG // VELOCIDAD // FUERZA  // PELEASGANADAS
@@ -36,6 +36,19 @@ public class MainJuego {
 		m1.addCarta(c9);
 		m1.addCarta(c10);
 		m1.addCarta(c11);
+		
+		Pocima p2 = new PocimaMagica();
+		Pocima p3 = new PocimaMagica();
+		Pocima p4 = new PocimaMagica();
+		Pocima p1 = new PocimaDebilitadora();
+		Pocima p5 = new PocimaDebilitadora();
+		Pocima p6 = new PocimaDebilitadora();
+		m1.addPocima(p1);
+		m1.addPocima(p2);
+		m1.addPocima(p3);
+		m1.addPocima(p4);
+		m1.addPocima(p5);
+		m1.addPocima(p6);
 		
 		Juego game = new Juego(m1, j1, j2);  //MAZO / JUGADOR 1 / JUGADOR 2
 		game.jugar();

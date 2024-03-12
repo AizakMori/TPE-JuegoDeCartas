@@ -1,4 +1,6 @@
 package mazo_cartas_pocima;
+import herramientas.*;
+import pocimas.*;
 
 public class Carta {
 	private String nombre;
@@ -7,6 +9,8 @@ public class Carta {
 	private int velocidad;
 	private int fuerza;
 	private int peleasGanadas;
+	private Pocima pocima;
+	private boolean seUsoPocima;
 
 	public Carta(String nom,int alt, int aPeso, int aVel, int aFuerza, int pel) {
 		nombre = nom;
@@ -65,13 +69,25 @@ public class Carta {
 		this.peleasGanadas = peleasGanadas;
 	}
 
+
+	public void aplicarPocima(int i) {
+		if(seUsoPocima != true && pocima != null) {
+			pocima.aplicar(this);
+			seUsoPocima = true;			
+		}
+	}
+	public void addPocima(Pocima p) {
+		pocima = p;
+	}
+	public boolean usada() {
+		return seUsoPocima;
+	}
 	public boolean verificar() {
 		if(!nombre.isEmpty() && altura > 0 && peso > 0 && velocidad > 0 && fuerza > 0 && peleasGanadas >=0)
 			return true;
 		else 
 			return false;
 	}
-	
 	public int getAtributoMasAlto() {
 		int max = this.getAltura();
 		int numAt = 0;
@@ -96,5 +112,26 @@ public class Carta {
 	public String toString() {
 		return "Nombre: " + this.getNombre() + " Altura: " + this.getAltura() + " Peso: " + this.getPeso() +
 				" Fuerza: " + this.getFuerza() + "Peleas ganadas: " + this.getPeleasGanadas();
+	}
+	public void getDatos(int comp, String jugador) {
+		switch(comp) {
+		case 3: 
+			System.out.println("La carta de " + jugador + " es " + this.getNombre() + " con una Fuerza de: "  + this.getFuerza() );
+			break;
+		case 0:
+			System.out.println("La carta de " + jugador + " es " + this.getNombre() + " con Altura de: " + this.getAltura() );
+			break;
+		case 4:
+			System.out.println("La carta de " + jugador + " es " + this.getNombre() + " con un total de Peleas ganadas: " + this.getPeleasGanadas() );
+			break;
+		case 2:
+			System.out.println("La carta de " + jugador + " es " + this.getNombre() + " con una velocidad de: " + this.getVelocidad() );
+			break;
+		case 1:
+			System.out.println("La carta de " + jugador + " es " + this.getNombre() + " con un peso de: " + this.getPeso() );
+			break;
+		default:
+			break;
+		}
 	}
 }
