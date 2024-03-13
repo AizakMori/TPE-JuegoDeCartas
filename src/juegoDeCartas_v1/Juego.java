@@ -11,8 +11,8 @@ public class Juego {
 	private Comparador elegido;
 	private Jugador j1;
 	private Jugador j2;
-	public int maxRondas;
-	public int nroRondas;
+	private int maxRondas;
+	private int nroRondas;
 	
 	public Juego(Mazo m1, Jugador j1, Jugador j2) {
 		this(m1, j1, j2, 15);

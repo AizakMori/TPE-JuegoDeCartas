@@ -7,12 +7,15 @@ public class JugadorObstinado extends Jugador {
 	}
 	public JugadorObstinado(String nom, int i) {	//POR SI QUERES CREARLO TAMBIEN CON EL NUMERO DE ATRIBUTO QUE VA A QUEDAR
 		super(nom);
-		select = i;
+		setSelect(i);
 	}
 	public int atributoSeleccionado(int indx) {
 		if(select != NEGATIVO) {
 			select = (int)(Math.random() * indx);
 		}
 		return select;
+	}
+	private void setSelect(int i) {
+		select = i;
 	}
 }
