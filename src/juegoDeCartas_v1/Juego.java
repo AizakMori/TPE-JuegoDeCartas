@@ -11,13 +11,14 @@ public class Juego {
 	private Comparador elegido;
 	private Jugador j1;
 	private Jugador j2;
-	public static int MAXRONDAS = 14;
+	public int maxRondas;
 	public int nroRondas;
-
+	
 	public Juego(Mazo m1, Jugador j1, Jugador j2) {
 		mazoGeneral = m1;
 		this.j1 = j1;
 		this.j2 = j2;
+		maxRondas = 15;
 		nroRondas = 1;
 		comparadores = new ArrayList<>();
 		setComparadores();
@@ -25,7 +26,7 @@ public class Juego {
 	/*------------------------------------------JUEGO---------------------------------------------------------*/
 	public void jugar() {
 		repartir();
-		while((nroRondas < MAXRONDAS) && (j1.cantCartas()>0) && (j2.cantCartas()>0)) {	
+		while((nroRondas < maxRondas) && (j1.cantCartas()>0) && (j2.cantCartas()>0)) {	
 			Mensajes.ronda(nroRondas);
 			obtenerComparador();
 			comparar();
@@ -37,8 +38,8 @@ public class Juego {
 			Mensajes.finDePartida(j2.getNombre());
 	}
 
-	public static void setRondas(int rondas) {	
-		MAXRONDAS = rondas;
+	public void setRondas(int rondas) {	
+		maxRondas = rondas;
 	}
 
 	/*------------------------------------REPARTIR-----------------------------------------------------*/
@@ -92,11 +93,10 @@ public class Juego {
 	private void obtenerComparador() {
 		int indx = comparadores.size();
 		if(j1.isGanador() == true) {	
-			elegido = comparadores.get(j1.atributoSeleccionado(indx));
+			elegido = elegir(j1.atributoSeleccionado(indx));
 			Mensajes.atributoSelec(j1.getNombre(), elegido.getNombre());
-
 		}else if(j2.isGanador()== true) {
-			elegido = comparadores.get(j2.atributoSeleccionado(indx));
+			elegido = elegir(j2.atributoSeleccionado(indx));
 			Mensajes.atributoSelec(j2.getNombre(), elegido.getNombre());
 		}else {
 			int rand = (int)(Math.random()*comparadores.size());
@@ -104,7 +104,16 @@ public class Juego {
 			Mensajes.random(elegido.getNombre());
 		}
 	}
-
+	
+	private Comparador elegir(int i) {
+		Comparador eleg = null;
+		for(Comparador e: comparadores) {
+			if(e.getNum() == i)
+				eleg = e;
+		}
+		return eleg;
+	}
+	
 	public void verificarPocimas(Carta c1) {
 		if(c1.usada() != true) {
 			c1.aplicarPocima(elegido.getNum());

@@ -10,7 +10,7 @@ public class MainJuego {
 	public static void main(String[] args) {
 		Mazo m1 = new Mazo();
 		Jugador j1 = new Jugador("Luis");
-		Jugador j2 = new Jugador("Mary");
+		Jugador j2 = new JugadorAmbicioso("Mary");
 		
 		//SIMPLIFIQUE LOS ATRIBUTOS A INT
 		// NOMBRE // ALTURA EN CM // PESO EN KG // VELOCIDAD // FUERZA  // PELEASGANADAS
@@ -69,6 +69,7 @@ public class MainJuego {
 		m1.addPocima(p9);
 		//---------------INICIO DE JUEGO-----------------
 		Juego game = new Juego(m1, j1, j2);  //MAZO / JUGADOR 1 / JUGADOR 2
+		game.setRondas(20);					//RONDAS DEFAULT 15 SE PUEDE CAMBIAR
 		game.jugar();
 	}
 }

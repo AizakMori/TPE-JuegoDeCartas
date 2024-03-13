@@ -28,7 +28,7 @@ public class JugadorAmbicioso extends Jugador {
 			return numAt;
 		}
 	
-	public int atributoSeleccionado(int i) {			//BUENO AL AMBICIOSO NO LE INTERESA LA CANTIDAD DE COMPARADORES QUE EXISTEN JAJA
+	public int atributoSeleccionado(int i) {
 		int aux = getAtributoAlto();
 		return aux;
 	}
