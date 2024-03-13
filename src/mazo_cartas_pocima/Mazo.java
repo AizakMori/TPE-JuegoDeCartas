@@ -24,11 +24,14 @@ public class Mazo {
 		Carta aux = cartas.get(cant);
 		cartas.remove(cant);
 		if(pocimas.size()!=0) {						//REPARTIR SI HAY POCIMAS EN EL ARRAY
+			int i = randomizador(2);				//QUE HAYA 50% DE PROBABILIDADES DE QUE SE AGREGUE UNA POCIMA
+			if(i == 0) {
 			int indx = randomizador(pocimas.size());
 			Pocima pocimaAux = pocimas.get(indx);
 			aux.addPocima(pocimaAux);
 			pocimas.remove(indx);
 			return aux;
+			}
 		}
 
 		return aux;

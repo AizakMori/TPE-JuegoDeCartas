@@ -2,7 +2,7 @@ package mazo_cartas_pocima;
 import herramientas.*;
 import pocimas.*;
 
-public class Carta extends Cartas{
+public class Carta{
 	private String nombre;
 	private int altura;
 	private int peso;
@@ -74,13 +74,15 @@ public class Carta extends Cartas{
 	public void aplicarPocima(int i) {
 		if(seUsoPocima != true && pocima != null) {
 			pocima.aplicar(this, i);
-			Mensajes.mostrarPocima(pocima.getNombre(), this.getAtributo(i));
-			seUsoPocima = true;			
+			Mensajes.mostrarPocima(pocima.getNombre(), this.getAtributo(i));		
 		}
 	}
 	public void addPocima(Pocima p) {
-		seUsoPocima = false;
 		pocima = p;
+		seUsoPocima = false;
+	}
+	public void seUsoUnaPocima() {
+		seUsoPocima = true;
 	}
 	public boolean usada() {
 		return seUsoPocima;
@@ -91,52 +93,7 @@ public class Carta extends Cartas{
 		else 
 			return false;
 	}
-	public int getAtributoMasAlto() {
-		int max = this.getAltura();
-		int numAt = 0;
-		if((this.getPeso()) > max) {
-			max = this.getPeso();
-			numAt = 1;
-		}
-		if((this.getVelocidad()) > max) {
-			max = this.getVelocidad();
-			numAt = 2;
-		}
-		if((this.getFuerza()) > max) {
-			max=this.getFuerza();
-			numAt = 3;
-		}
-		if((this.getPeleasGanadas())>max) {
-			max= this.getPeleasGanadas();
-			numAt = 4;
-		}
-		return numAt;
-	}
-	public String toString() {
-		return "Nombre: " + this.getNombre() + " Altura: " + this.getAltura() + " Peso: " + this.getPeso() +
-				" Fuerza: " + this.getFuerza() + "Peleas ganadas: " + this.getPeleasGanadas();
-	}
-	public void getDatos(int comp, String jugador) {
-		switch(comp) {
-		case 0:
-			System.out.println("La carta de " + jugador + " es " + this.getNombre() + " con Altura de: " + this.getAltura() );
-			break;
-		case 1:
-			System.out.println("La carta de " + jugador + " es " + this.getNombre() + " con un peso de: " + this.getPeso() );
-			break;
-		case 2:
-			System.out.println("La carta de " + jugador + " es " + this.getNombre() + " con una velocidad de: " + this.getVelocidad() );
-			break;
-		case 3: 
-			System.out.println("La carta de " + jugador + " es " + this.getNombre() + " con una Fuerza de: "  + this.getFuerza() );
-			break;
-		case 4:
-			System.out.println("La carta de " + jugador + " es " + this.getNombre() + " con un total de Peleas ganadas: " + this.getPeleasGanadas() );
-			break;
-		default:
-			break;
-		}
-	}
+	
 	public int getAtributo(int i) {
 		switch(i) {
 		case 0:
@@ -152,5 +109,10 @@ public class Carta extends Cartas{
 		default:
 			return -1;
 		}
+	}
+	
+	public String toString() {
+		return "Nombre: " + this.getNombre() + " Altura: " + this.getAltura() + " Peso: " + this.getPeso() +
+				" Fuerza: " + this.getFuerza() + "Peleas ganadas: " + this.getPeleasGanadas();
 	}
 }

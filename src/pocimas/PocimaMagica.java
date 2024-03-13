@@ -7,8 +7,9 @@ public class PocimaMagica extends Pocima {
 	public PocimaMagica() {
 		super("Pocima Magica");
 	}
-	public PocimaMagica(String nom) {
+	public PocimaMagica(String nom, int i) {
 		super(nom);
+		setNumero(i);
 	}
 	@Override
 	public void aplicar(Carta c, int i) {
@@ -17,5 +18,8 @@ public class PocimaMagica extends Pocima {
 		c.setPeleasGanadas(NUMMAGICO);
 		c.setPeso(NUMMAGICO);
 		c.setVelocidad(NUMMAGICO);
+	}
+	public static void setNumero(int j) {
+		NUMMAGICO = j;
 	}
 }

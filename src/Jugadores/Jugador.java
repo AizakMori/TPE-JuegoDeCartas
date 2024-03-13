@@ -9,8 +9,7 @@ public class Jugador {
 	public Jugador(String nom) {
 		nombre = nom;
 		mazo = new Mazo();
-
-		ganador = false;
+		setGanador(false);
 	}
 	
 	public String getNombre() {
@@ -43,7 +42,6 @@ public class Jugador {
 		return mazo.cantCartas();
 	}
 	public void finalDelMazo(Carta c){
-		ganador = false;
 		mazo.ultimoLugar(c);
 	}
 

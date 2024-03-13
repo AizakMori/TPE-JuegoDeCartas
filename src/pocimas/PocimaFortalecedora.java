@@ -5,8 +5,9 @@ import mazo_cartas_pocima.Carta;
 public class PocimaFortalecedora extends Pocima {
 
 	public  int porcentaje;
+	
 	public PocimaFortalecedora() {
-		this("Fortalecedora", 25);
+		this("Fortalecedora", 35);
 	}
 	public PocimaFortalecedora(String nom, int i) {
 		super(nom);

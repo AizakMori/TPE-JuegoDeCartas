@@ -22,6 +22,7 @@ public class Juego {
 		comparadores = new ArrayList<>();
 		setComparadores();
 	}
+	/*------------------------------------------JUEGO---------------------------------------------------------*/
 	public void jugar() {
 		repartir();
 		while((nroRondas < MAXRONDAS) && (j1.cantCartas()>0) && (j2.cantCartas()>0)) {	
@@ -40,6 +41,7 @@ public class Juego {
 		MAXRONDAS = rondas;
 	}
 
+	/*------------------------------------REPARTIR-----------------------------------------------------*/
 	private void repartir() {	
 		Mensajes.imprimirRepartir();
 		while(mazoGeneral.quedanCartas()) {
@@ -50,75 +52,77 @@ public class Juego {
 		}
 	}
 
-	private void obtenerComparador() {
-		int indx = comparadores.size();
-		if(j1.isGanador()) {	
-			elegido = comparadores.get(j1.atributoSeleccionado(indx));
-			
-		}else if(j2.isGanador()) {
-			elegido = comparadores.get(j2.atributoSeleccionado(indx));
-		}else {
-			if(j1.cantCartas() > j2.cantCartas()) 
-				elegido = comparadores.get(j1.atributoSeleccionado(indx));
-			else 
-				elegido = comparadores.get(j2.atributoSeleccionado(indx));
-		}
-	}
 
 	public void comparar() {
-	    int numComp = elegido.getNum();
-	    Carta cartaJ1 = j1.jugarCarta();
-	    Carta cartaJ2 = j2.jugarCarta();
-	    
-	    verificarPocimas(cartaJ1);
-	    verificarPocimas(cartaJ2);
-	    
-	    Mensajes.mostrarCarta(elegido.getNombre(), j1.getNombre(), cartaJ1.getNombre(), cartaJ1.getAtributo(numComp));
-	    Mensajes.mostrarCarta(elegido.getNombre(), j2.getNombre(), cartaJ2.getNombre(), cartaJ2.getAtributo(numComp));
+		int numComp = elegido.getNum();
+		Carta cartaJ1 = j1.jugarCarta();
+		Carta cartaJ2 = j2.jugarCarta();
 
-	    int res = elegido.compare(cartaJ1, cartaJ2);
+		Mensajes.mostrarCarta(elegido.getNombre(), j1.getNombre(), cartaJ1.getNombre(), cartaJ1.getAtributo(numComp));
+		verificarPocimas(cartaJ1);
+		Mensajes.mostrarCarta(elegido.getNombre(), j2.getNombre(), cartaJ2.getNombre(), cartaJ2.getAtributo(numComp));
+		verificarPocimas(cartaJ2);
 
-	    procesarResultadoRonda(res, cartaJ1, cartaJ2);
-	    nroRondas++;
-	}
-	
-	public void verificarPocimas(Carta c1) {
-		if(c1.usada() != true) {
-			c1.aplicarPocima(elegido.getNum());			
-		}
+
+		int res = elegido.compare(cartaJ1, cartaJ2);
+
+		procesarResultadoRonda(res, cartaJ1, cartaJ2);
+		nroRondas++;
 	}
 
 	private void procesarResultadoRonda(int res, Carta cartaJ1, Carta cartaJ2) {
-	    if (res == 1) {
-	        j1.setGanador(true);
-	        j1.finalDelMazo(cartaJ1);
-	        j1.finalDelMazo(cartaJ2);
-	        Mensajes.ganadorRonda(j1.getNombre());
-	    } else if (res == -1) {
-	        j2.setGanador(true);
-	        j2.finalDelMazo(cartaJ2);
-	        j2.finalDelMazo(cartaJ1);
-	        Mensajes.ganadorRonda(j2.getNombre());
-	    } else {
-	        j1.finalDelMazo(cartaJ1);
-	        j2.finalDelMazo(cartaJ2);
-	        Mensajes.empate();
-	    }
+		if (res == 1) {
+			j1.setGanador(true);
+			j2.setGanador(false);
+			j1.finalDelMazo(cartaJ1);
+			j1.finalDelMazo(cartaJ2);
+			Mensajes.ganadorRonda(j1.getNombre());
+		} else if (res == -1) {
+			j2.setGanador(true);
+			j1.setGanador(false);
+			j2.finalDelMazo(cartaJ2);
+			j2.finalDelMazo(cartaJ1);
+			Mensajes.ganadorRonda(j2.getNombre());
+		} else {
+			j1.finalDelMazo(cartaJ1);
+			j2.finalDelMazo(cartaJ2);
+			Mensajes.empate();
+		}
 	}
-	
+	private void obtenerComparador() {
+		int indx = comparadores.size();
+		if(j1.isGanador() == true) {	
+			elegido = comparadores.get(j1.atributoSeleccionado(indx));
+			Mensajes.atributoSelec(j1.getNombre(), elegido.getNombre());
 
+		}else if(j2.isGanador()== true) {
+			elegido = comparadores.get(j2.atributoSeleccionado(indx));
+			Mensajes.atributoSelec(j2.getNombre(), elegido.getNombre());
+		}else {
+			int rand = (int)(Math.random()*comparadores.size());
+			elegido = comparadores.get(rand);
+			Mensajes.random(elegido.getNombre());
+		}
+	}
+
+	public void verificarPocimas(Carta c1) {
+		if(c1.usada() != true) {
+			c1.aplicarPocima(elegido.getNum());
+			c1.seUsoUnaPocima();
+		}
+	}
 	public void setComparadores() {
 		Comparador comp2 = new Altura();
 		Comparador comp3 = new Peso();
 		Comparador comp4 = new Velocidad();
 		Comparador comp1 = new Fuerza();
 		Comparador comp5 = new Peleas_Ganadas();
-		
+
 		comparadores.add(comp1);
 		comparadores.add(comp2);
 		comparadores.add(comp3);
 		comparadores.add(comp4);
 		comparadores.add(comp5);
 	}
-	
+
 }

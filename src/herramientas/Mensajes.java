@@ -16,6 +16,9 @@ public class Mensajes {
 	public static void atributoSelec(String j,String c) {
 		System.out.println("El jugador " + j + " selecciona competir por el atributo " + c);
 	}
+	public static void random(String c) {
+		System.out.println("Por empate se selecciono de forma aleatoria competir por " + c);
+	}
 	//public static void mostrarDatos(String nombreC1, )
 	public static void ganadorRonda(String j) {
 		System.out.println(GANADOR + j.toUpperCase());

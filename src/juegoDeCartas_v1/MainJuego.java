@@ -25,6 +25,7 @@ public class MainJuego {
 		Carta c9 = new Carta("Starfire", 180, 70, 150, 100, 75);
 		Carta c10 = new Carta("Chico bestia", 170, 65, 150, 300, 20);
 		Carta c11 = new Carta("Terra", 170, 60, 25, 90, 10);
+		//-----------------------AÑADIDO DE CARTAS AL MAZO----------------------------------------
 		m1.addCarta(c1);
 		m1.addCarta(c2);
 		m1.addCarta(c3);
@@ -36,20 +37,37 @@ public class MainJuego {
 		m1.addCarta(c9);
 		m1.addCarta(c10);
 		m1.addCarta(c11);
+		//---------------------CREACION DE POCIMAS-------------------------------------
+		Pocima p1 = new PocimaFortalecedora();			//POCIMA DE SERIE VIENE CON 35% DE EFECTO BASE A TODOS LOS ATRIBUTOS
+		Pocima p2 = new PocimaFortalecedora();			//POCIMA PERSONALIZADA CON NOMBRE Y PORCENTAJE EN INT DE EFECTO EN TODOS LOS ATRIBUTOS
+		Pocima p3 = new PocimaMagica();					//POCIMA DE SERIE TODOS LOS ATRIBUTOS A 25
+		Pocima p4 = new PocimaMagica("Mucha potencia magica", 500);		//POCIMA PERSONALIZADA TODOS LOS ATRIBUTOS ELEGIDOS
+		Pocima p5 = new PocimaDebilitadora();							//POCIMA DE SERIE RESTA UN 35% EN TODOS LOS ATRIBUTOS
+		Pocima p6 = new PocimaDebilitadora("NERF THIS", 75);			//POCIMA PERSONALIZADA RESTA EN INT TODOS LOS ATRIBUTOS 
+		Pocima p7 = new PocimaSelectiva();				//POCIMA DE SERIE VIENE CON UN 35% AL ATRIBUTO VELOCIDAD SI ES ELEGIDO EN LA RONDA
+		//PARAMETROS(NOMBRE / EFECTO EN INT / ATRIBUTO: 0.ALTURA 1.PESO 2.VELOCIDAD 3.FUERZA 4.PELEAS GANADAS)
+		Pocima p8 = new PocimaSelectiva("MAGIA A LA FUERZA", 50, 3);				//CASO ESPECIAL POCIMA SELECTIVA PERSONALIZADA
 		
-		Pocima p2 = new PocimaMagica();
-		Pocima p3 = new PocimaMagica();
-		Pocima p4 = new PocimaFortalecedora();
-		Pocima p1 = new PocimaFortalecedora();
-		Pocima p5 = new PocimaDebilitadora();
-		Pocima p6 = new PocimaDebilitadora();
+		//-------------AÑADIDO DE LAS POCIMAS COCKTAIL-------
+		PocimaCocktail p9 = new PocimaCocktail("La Poderosa");
+		PocimaCocktail p10 = new PocimaCocktail("Trago amargo");
+		p10.addPocima(p5);
+		p10.addPocima(p6);
+		p10.addPocima(p7);
+		p9.addPocima(p1);
+		p9.addPocima(p4);
+		p9.addPocima(p7);
+		//---------------ADD DE POCIMAS AL MAZO------------
 		m1.addPocima(p1);
 		m1.addPocima(p2);
 		m1.addPocima(p3);
 		m1.addPocima(p4);
 		m1.addPocima(p5);
 		m1.addPocima(p6);
-		
+		m1.addPocima(p7);
+		m1.addPocima(p8);
+		m1.addPocima(p9);
+		//---------------INICIO DE JUEGO-----------------
 		Juego game = new Juego(m1, j1, j2);  //MAZO / JUGADOR 1 / JUGADOR 2
 		game.jugar();
 	}
