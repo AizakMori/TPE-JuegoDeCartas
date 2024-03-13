@@ -81,12 +81,15 @@ public class Carta{
 		pocima = p;
 		seUsoPocima = false;
 	}
+	
 	public void seUsoUnaPocima() {
 		seUsoPocima = true;
 	}
+	
 	public boolean usada() {
 		return seUsoPocima;
 	}
+	
 	public boolean verificar() {
 		if(!nombre.isEmpty() && altura > 0 && peso > 0 && velocidad > 0 && fuerza > 0 && peleasGanadas >=0)
 			return true;

@@ -1,6 +1,5 @@
 package pocimas;
-
-import mazo_cartas_pocima.Carta;
+import mazo_cartas_pocima.*;
 
 public abstract class Pocima {
 	private String nombre;

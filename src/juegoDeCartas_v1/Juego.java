@@ -15,10 +15,13 @@ public class Juego {
 	public int nroRondas;
 	
 	public Juego(Mazo m1, Jugador j1, Jugador j2) {
+		this(m1, j1, j2, 15);
+	}
+	public Juego(Mazo m1, Jugador j1, Jugador j2, int rond) {
 		mazoGeneral = m1;
 		this.j1 = j1;
 		this.j2 = j2;
-		maxRondas = 15;
+		maxRondas = rond;
 		nroRondas = 1;
 		comparadores = new ArrayList<>();
 		setComparadores();
@@ -26,7 +29,7 @@ public class Juego {
 	/*------------------------------------------JUEGO---------------------------------------------------------*/
 	public void jugar() {
 		repartir();
-		while((nroRondas < maxRondas) && (j1.cantCartas()>0) && (j2.cantCartas()>0)) {	
+		while((nroRondas <= maxRondas) && (j1.cantCartas()>0) && (j2.cantCartas()>0)) {	
 			Mensajes.ronda(nroRondas);
 			obtenerComparador();
 			comparar();
@@ -53,7 +56,7 @@ public class Juego {
 		}
 	}
 
-
+	/*------------------------------------COMPARAR Y ASIGNAR GANADOR-------------------------------*/
 	public void comparar() {
 		int numComp = elegido.getNum();
 		Carta cartaJ1 = j1.jugarCarta();
@@ -63,11 +66,10 @@ public class Juego {
 		verificarPocimas(cartaJ1);
 		Mensajes.mostrarCarta(elegido.getNombre(), j2.getNombre(), cartaJ2.getNombre(), cartaJ2.getAtributo(numComp));
 		verificarPocimas(cartaJ2);
-
-
+		
 		int res = elegido.compare(cartaJ1, cartaJ2);
-
 		procesarResultadoRonda(res, cartaJ1, cartaJ2);
+		
 		nroRondas++;
 	}
 
@@ -90,7 +92,7 @@ public class Juego {
 			Mensajes.empate();
 		}
 	}
-	private void obtenerComparador() {
+	private void obtenerComparador() {					// AQUI SE LE PIDE AL JUGADOR UN NUMERO DEL 0 AL 5 QUE CORRESPONDE A LOS ATRIBUTOS
 		int indx = comparadores.size();
 		if(j1.isGanador() == true) {	
 			elegido = elegir(j1.atributoSeleccionado(indx));
@@ -105,7 +107,7 @@ public class Juego {
 		}
 	}
 	
-	private Comparador elegir(int i) {
+	private Comparador elegir(int i) {					//DECIDI IDENTIFICAR A CADA METODO POR UN NUMERO CORRESPONDIENTE Y DE AHI SE ELIGEN
 		Comparador eleg = null;
 		for(Comparador e: comparadores) {
 			if(e.getNum() == i)
@@ -120,7 +122,7 @@ public class Juego {
 			c1.seUsoUnaPocima();
 		}
 	}
-	public void setComparadores() {
+	public void setComparadores() {						//PARA EVITAR CUALQUIER PROBLEMA PREFERI METER LA INTANCIA DE LOS COMPARADORES EN UN METODO
 		Comparador comp2 = new Altura();
 		Comparador comp3 = new Peso();
 		Comparador comp4 = new Velocidad();

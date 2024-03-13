@@ -1,5 +1,4 @@
 package juegoDeCartas_v1;
-
 import Jugadores.*;
 import mazo_cartas_pocima.*;
 import pocimas.*;
@@ -9,8 +8,9 @@ public class MainJuego {
 
 	public static void main(String[] args) {
 		Mazo m1 = new Mazo();
-		Jugador j1 = new Jugador("Luis");
+		Jugador j1 = new Jugador("Terry");
 		Jugador j2 = new JugadorAmbicioso("Mary");
+		//Jugador j3 = new JugadorObstinado("Julian");
 		
 		//SIMPLIFIQUE LOS ATRIBUTOS A INT
 		// NOMBRE // ALTURA EN CM // PESO EN KG // VELOCIDAD // FUERZA  // PELEASGANADAS
@@ -24,7 +24,7 @@ public class MainJuego {
 		Carta c8 = new Carta("Raven", 170, 55, 120, 150, 25 );
 		Carta c9 = new Carta("Starfire", 180, 70, 150, 100, 75);
 		Carta c10 = new Carta("Chico bestia", 170, 65, 150, 300, 20);
-		Carta c11 = new Carta("Terra", 170, 60, 25, 90, 10);
+		Carta c11 = new Carta("Terra", 170, 60, 27, 90, 10);
 		//-----------------------AÑADIDO DE CARTAS AL MAZO----------------------------------------
 		m1.addCarta(c1);
 		m1.addCarta(c2);
@@ -68,8 +68,7 @@ public class MainJuego {
 		m1.addPocima(p8);
 		m1.addPocima(p9);
 		//---------------INICIO DE JUEGO-----------------
-		Juego game = new Juego(m1, j1, j2);  //MAZO / JUGADOR 1 / JUGADOR 2
-		game.setRondas(20);					//RONDAS DEFAULT 15 SE PUEDE CAMBIAR
+		Juego game = new Juego(m1, j1, j2, 20);  //MAZO / JUGADOR 1 / JUGADOR 2 /RONDAS DEFAULT 15 SE PUEDE CAMBIAR con setRondas(int);
 		game.jugar();
 	}
 }

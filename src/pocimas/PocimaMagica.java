@@ -1,25 +1,24 @@
 package pocimas;
-
-import mazo_cartas_pocima.Carta;
+import mazo_cartas_pocima.*;
 
 public class PocimaMagica extends Pocima {
-	public static int NUMMAGICO = 25;
+	public int numMagico;
 	public PocimaMagica() {
-		super("Pocima Magica");
+		this("Pocima Magica", 25);
 	}
 	public PocimaMagica(String nom, int i) {
 		super(nom);
-		setNumero(i);
+		numMagico = i;
 	}
 	@Override
 	public void aplicar(Carta c, int i) {
-		c.setAltura(NUMMAGICO);
-		c.setFuerza(NUMMAGICO);
-		c.setPeleasGanadas(NUMMAGICO);
-		c.setPeso(NUMMAGICO);
-		c.setVelocidad(NUMMAGICO);
+		c.setAltura(numMagico);
+		c.setFuerza(numMagico);
+		c.setPeleasGanadas(numMagico);
+		c.setPeso(numMagico);
+		c.setVelocidad(numMagico);
 	}
-	public static void setNumero(int j) {
-		NUMMAGICO = j;
+	public void setNumero(int j) {
+		numMagico = j;
 	}
 }

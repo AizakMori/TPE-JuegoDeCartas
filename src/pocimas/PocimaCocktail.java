@@ -1,7 +1,6 @@
 package pocimas;
 import java.util.ArrayList;
-
-import mazo_cartas_pocima.Carta;
+import mazo_cartas_pocima.*;
 
 public class PocimaCocktail extends Pocima {
 	private ArrayList<Pocima> pocimas;

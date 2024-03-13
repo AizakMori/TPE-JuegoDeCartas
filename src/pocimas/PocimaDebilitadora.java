@@ -1,6 +1,6 @@
 package pocimas;
 
-import mazo_cartas_pocima.Carta;
+import mazo_cartas_pocima.*;
 
 public class PocimaDebilitadora extends Pocima {
 	public  int porcentaje;

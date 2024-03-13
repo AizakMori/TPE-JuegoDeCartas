@@ -1,7 +1,5 @@
 package mazo_cartas_pocima;
-
 import java.util.ArrayList;
-
 import pocimas.Pocima;
 
 public class Mazo {
@@ -21,11 +19,12 @@ public class Mazo {
 	}
 	public Carta repartirCarta() {					//REPARTE A PARTIR DE LA CARTA "EN LA PARTE SUPERIOR DEL MAZO"
 		int cant = cartas.size()-1;
+		verificarCartas();							//METODO QUE VERIFICA LAS CARTAS DEL MAZO
 		Carta aux = cartas.get(cant);
 		cartas.remove(cant);
 		if(pocimas.size()!=0) {						//REPARTIR SI HAY POCIMAS EN EL ARRAY
-			int i = randomizador(2);				//QUE HAYA 50% DE PROBABILIDADES DE QUE SE AGREGUE UNA POCIMA
-			if(i == 0) {
+			int i = randomizador(2);				
+			if(i == 0) {							//QUE HAYA 50% DE PROBABILIDADES DE QUE SE AGREGUE UNA POCIMA(" ALEATORIO ")
 			int indx = randomizador(pocimas.size());
 			Pocima pocimaAux = pocimas.get(indx);
 			aux.addPocima(pocimaAux);
@@ -36,12 +35,18 @@ public class Mazo {
 
 		return aux;
 	}
-	public Carta entregarCarta() {					//ENTREGA PRIMER CARTA
+	public void verificarCartas() {
+		for(int i= 0; i < cartas.size(); i++) {
+			if(cartas.get(i).verificar()!= true)
+				cartas.remove(i);
+		}
+	}
+	public Carta entregarCarta() {					//ENTREGA PRIMER CARTA, PARA PONERLA EN JUEGO
 		Carta aux = cartas.get(0);
 		cartas.remove(0);
 		return aux;
 	}
-	public Carta verCarta() {						//PARA EL JUGADOR AMBICIOSO
+	public Carta verCarta() {						//PARA EL JUGADOR AMBICIOSO, VER LA CARTA SIN ENTREGARLA PARA VERIFICAR EL ATRIBUTO MAS ALTO
 		Carta aux = cartas.get(0);
 		return aux;
 	}
@@ -52,14 +57,10 @@ public class Mazo {
 		int aux = cartas.size();
 		return aux;
 	}
-	public String imprimirPrimerCarta() {			//LLAMA AL TOSTRING DE LA CARTA PARA IMPRIMIRLA
-		Carta aux = cartas.get(0);
-		return aux.toString();
-	}
 	public void ultimoLugar(Carta c) {				//COLOCA LA CARTA EN EL ULTIMO LUGAR EN CASO DE EMPATE
 		cartas.add(cartas.size(), c);
 	}
-	public int randomizador(int i) {
+	public int randomizador(int i) {				//LO UTILIZO PARA NO REPETIR CODIGO EN EL REPARTIR
 		return (int)(Math.random()*i);
 	}
 }

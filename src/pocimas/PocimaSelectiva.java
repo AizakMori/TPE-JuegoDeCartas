@@ -1,18 +1,12 @@
 package pocimas;
-
-import mazo_cartas_pocima.Carta;
+import mazo_cartas_pocima.*;
 
 public class PocimaSelectiva extends Pocima {
 	private int atributoSelec;
 	private int modificador;
-	public static int BASE = 35;
 	
 	public PocimaSelectiva() {
-		this("SelectivaVelocidad",2);
-	}
-	public PocimaSelectiva(String nom, int num) {
-		this(nom,BASE,num);
-		
+		this("SelectivaVelocidad",35,2);
 	}
 	public PocimaSelectiva(String nom, int num, int at) {
 		super(nom);

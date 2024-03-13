@@ -4,7 +4,7 @@ import mazo_cartas_pocima.*;
 public class Jugador {
 	private String nombre;
 	protected Mazo mazo;
-	private boolean ganador;
+	private boolean ganador;				//VALOR PARA VERIFICAR QUIEN ELIGE LA PROXIMA RONDA
 	
 	public Jugador(String nom) {
 		nombre = nom;
@@ -30,9 +30,6 @@ public class Jugador {
 	}
 	public void addCarta(Carta c1) {
 		mazo.addCarta(c1);
-	}
-	public String imprimirCarta() {
-		return mazo.imprimirPrimerCarta();
 	}
 	public Carta jugarCarta() {
 		Carta carta = mazo.entregarCarta();
